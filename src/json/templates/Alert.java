@@ -54,4 +54,9 @@ public class Alert {
 	public void setRewardTypes(List<String> rewardTypes) {
 		this.rewardTypes = rewardTypes;
 	}
+	@Override
+	public String toString() {
+		String notificationString = this.getExpiry() + "\n reward str: \n" + this.getMission().getReward().getAsString();
+		return notificationString;
+	}
 }
