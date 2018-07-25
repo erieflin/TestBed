@@ -3,14 +3,16 @@ package json.templates;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Alert {
+public class Sortie {
 	private String id;
 	private String activation;
 	private String expiry;
-	private Mission mission;
+	private String rewardPool;
+	private List<Variant> variants = new ArrayList<Variant>();
+	private String boss;
+	private String faction;
 	private boolean expired;
 	private String eta;
-	private List<String> rewardTypes = new ArrayList<String>();
 	
 	public String getId() {
 		return id;
@@ -30,11 +32,29 @@ public class Alert {
 	public void setExpiry(String expiry) {
 		this.expiry = expiry;
 	}
-	public Mission getMission() {
-		return mission;
+	public String getRewardPool() {
+		return rewardPool;
 	}
-	public void setMission(Mission mission) {
-		this.mission = mission;
+	public void setRewardPool(String rewardPool) {
+		this.rewardPool = rewardPool;
+	}
+	public List<Variant> getVariants() {
+		return variants;
+	}
+	public void setVariants(List<Variant> variants) {
+		this.variants = variants;
+	}
+	public String getBoss() {
+		return boss;
+	}
+	public void setBoss(String boss) {
+		this.boss = boss;
+	}
+	public String getFaction() {
+		return faction;
+	}
+	public void setFaction(String faction) {
+		this.faction = faction;
 	}
 	public boolean isExpired() {
 		return expired;
@@ -47,16 +67,5 @@ public class Alert {
 	}
 	public void setEta(String eta) {
 		this.eta = eta;
-	}
-	public List<String> getRewardTypes() {
-		return rewardTypes;
-	}
-	public void setRewardTypes(List<String> rewardTypes) {
-		this.rewardTypes = rewardTypes;
-	}
-	@Override
-	public String toString() {
-		String notificationString = this.getExpiry() + "\nreward string\n" + this.getMission().getReward();
-		return notificationString;
 	}
 }

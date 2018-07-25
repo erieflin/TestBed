@@ -19,9 +19,11 @@ import com.theme.ThemePackagePresets;
 import com.utils.Time;
 
 import json.templates.Alert;
+import json.templates.Invasion;
 
 public class NotificationEngine {
 	private List<Alert> alerts = new ArrayList<Alert>();
+	private List<Invasion> invasions = new ArrayList<Invasion>();
 	private Filters filters = new Filters();
 
 	public List<Alert> getAlerts() {
@@ -40,6 +42,14 @@ public class NotificationEngine {
 		this.filters = filters;
 	}
 
+	public List<Invasion> getInvasions() {
+		return invasions;
+	}
+
+	public void setInvasions(List<Invasion> invasions) {
+		this.invasions = invasions;
+	}
+
 	public void displayNotifications() {
 		// makes a factory with the built-in clean theme
 		// themes are customizeable
@@ -51,27 +61,40 @@ public class NotificationEngine {
 		// location
 		// other managers do sliding, queues, etc.
 		NotificationManager plain = new SimpleManager(Location.SOUTHEAST);
-		
+
 		// creates a text notification; you can also have progress bar
 		// Notifications,
 		// icon Notifications, Notifications that ask for user feedback, etc.
 		for (Alert alert : alerts) {
-		//for(int i =0; i < 20; ++i){
-			TextNotification notification = factory.buildTextNotification(alert.getMission().getType(), alert.toString());
-			notification.setCloseOnClick(true);
-			// the notification will disappear after 2 seconds, or after you
-			// click it
-			plain.addNotification(notification, Time.infinite());
-			
-			try {
-				Thread.sleep(2000);
-				plain.removeNotification(notification);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
+			displayNotification(factory, plain, alert.getMission().getType(), alert.toString());
+		}
+		for (Invasion invasion : invasions) {
+			displayNotification(factory, plain, invasion.getDesc(), invasion.toString());
 		}
 		plain = null;
 	}
+
+	public void displayNotification(NotificationFactory factory, NotificationManager plain, String title,
+			String message) {
+		displayNotification(factory, plain, title, message, 2);
+	}
+
+	public void displayNotification(NotificationFactory factory, NotificationManager plain, String title,
+			String message, double seconds) {
+		TextNotification notification = factory.buildTextNotification(title, message);
+		notification.setCloseOnClick(true);
+		// the notification will disappear after 2 seconds, or after you
+		// click it
+		plain.addNotification(notification, Time.infinite());
+
+		try {
+
+			Thread.sleep(Time.seconds(2).getMilliseconds());
+			plain.removeNotification(notification);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 }
