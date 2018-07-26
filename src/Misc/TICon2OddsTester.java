@@ -4,8 +4,8 @@ import java.util.Random;
 
 public class TICon2OddsTester {
 	public static void main(String[] args){
-		for(int i = 0; i < 10; ++i){
-			double odds = .5 + (.01 * i);
+		for(int i = 0; i < 100; ++i){
+			double odds = (.01 * i);
 			int count =0;
 			for(int j =0; j<100; ++j){
 				int result = test(10000000,1000,odds);

@@ -1,4 +1,4 @@
-package warframe.json;
+package warframe.api;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
@@ -13,12 +13,13 @@ import org.apache.http.impl.client.HttpClients;
 
 public class HttpUtils {
 	private static CloseableHttpClient httpClient = null;
-	
-	public static void closeClient() throws IOException{
+
+	public static void closeClient() throws IOException {
 		httpClient.close();
 	}
-	public static void openClient(){
-		if(httpClient != null){
+
+	public static void openClient() {
+		if (httpClient != null) {
 			try {
 				httpClient.close();
 			} catch (IOException e) {
@@ -28,15 +29,17 @@ public class HttpUtils {
 		}
 		httpClient = HttpClients.createDefault();
 	}
-	public static CloseableHttpResponse sendRequest(String url) throws ClientProtocolException, IOException, NoSuchAlgorithmException{
-		
+
+	public static CloseableHttpResponse sendRequest(String url)
+			throws ClientProtocolException, IOException, NoSuchAlgorithmException {
+
 		HttpGet httpGet = new HttpGet(url);
-		return  httpClient.execute(httpGet);
-		
+		return httpClient.execute(httpGet);
 
 	}
-	
-	public static String getContentFromResponse(HttpResponse response) throws UnsupportedOperationException, IOException{
+
+	public static String getContentFromResponse(HttpResponse response)
+			throws UnsupportedOperationException, IOException {
 		String responseStr = IOUtils.toString(response.getEntity().getContent(), "utf-8");
 		return responseStr;
 	}

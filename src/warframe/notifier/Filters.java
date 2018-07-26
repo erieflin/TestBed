@@ -1,4 +1,4 @@
-package warframe.json;
+package warframe.notifier;
 
 public class Filters {
 

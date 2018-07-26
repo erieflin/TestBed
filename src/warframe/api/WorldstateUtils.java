@@ -1,4 +1,4 @@
-package warframe.utils;
+package warframe.api;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -12,12 +12,11 @@ import org.apache.http.client.methods.CloseableHttpResponse;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import warframe.json.HttpUtils;
-import warframe.json.templates.Alert;
-import warframe.json.templates.CetusCycle;
-import warframe.json.templates.Fissure;
-import warframe.json.templates.Invasion;
-import warframe.json.templates.WorldState;
+import warframe.api.templates.Alert;
+import warframe.api.templates.CetusCycle;
+import warframe.api.templates.Fissure;
+import warframe.api.templates.Invasion;
+import warframe.api.templates.WorldState;
 
 public class WorldstateUtils {
 
@@ -26,7 +25,7 @@ public class WorldstateUtils {
 	private static final String INVASIONSURL = PCURL + "/invasions";
 	private static final String FISSURESSURL = PCURL + "/fissures";
 	private static final String CETUSURL = PCURL + "/cetusCycle";
-	
+
 	public static WorldState getWorldState() {
 		WorldState world = new WorldState();
 		CloseableHttpResponse response = null;
@@ -38,7 +37,7 @@ public class WorldstateUtils {
 			Gson gson = new Gson();
 
 			world = gson.fromJson(json, WorldState.class);
-			
+
 		} catch (ClientProtocolException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -48,8 +47,8 @@ public class WorldstateUtils {
 		} catch (NoSuchAlgorithmException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}finally{
-			if(response != null){
+		} finally {
+			if (response != null) {
 				try {
 					response.close();
 					HttpUtils.closeClient();
@@ -61,8 +60,8 @@ public class WorldstateUtils {
 		}
 		return world;
 	}
-	
-	public static CetusCycle getCetus(){
+
+	public static CetusCycle getCetus() {
 		CetusCycle cetus = new CetusCycle();
 		CloseableHttpResponse response = null;
 		try {
@@ -73,7 +72,7 @@ public class WorldstateUtils {
 			Gson gson = new Gson();
 
 			cetus = gson.fromJson(json, CetusCycle.class);
-			
+
 		} catch (ClientProtocolException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -83,8 +82,8 @@ public class WorldstateUtils {
 		} catch (NoSuchAlgorithmException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}finally{
-			if(response != null){
+		} finally {
+			if (response != null) {
 				try {
 					response.close();
 					HttpUtils.closeClient();
@@ -96,9 +95,8 @@ public class WorldstateUtils {
 		}
 		return cetus;
 	}
-	
-	
-	public static List<Fissure> getFissures(){
+
+	public static List<Fissure> getFissures() {
 		List<Fissure> fissures = new ArrayList<Fissure>();
 		CloseableHttpResponse response = null;
 		try {
@@ -110,7 +108,7 @@ public class WorldstateUtils {
 			Type listType = new TypeToken<List<Fissure>>() {
 			}.getType();
 			fissures = gson.fromJson(json, listType);
-			
+
 		} catch (ClientProtocolException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -120,8 +118,8 @@ public class WorldstateUtils {
 		} catch (NoSuchAlgorithmException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}finally{
-			if(response != null){
+		} finally {
+			if (response != null) {
 				try {
 					response.close();
 					HttpUtils.closeClient();
@@ -133,7 +131,7 @@ public class WorldstateUtils {
 		}
 		return fissures;
 	}
-	
+
 	public static List<Invasion> getInvasions() {
 		List<Invasion> invasions = new ArrayList<Invasion>();
 		CloseableHttpResponse response = null;
@@ -146,7 +144,7 @@ public class WorldstateUtils {
 			Type listType = new TypeToken<List<Invasion>>() {
 			}.getType();
 			invasions = gson.fromJson(json, listType);
-			
+
 		} catch (ClientProtocolException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -156,8 +154,8 @@ public class WorldstateUtils {
 		} catch (NoSuchAlgorithmException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}finally{
-			if(response != null){
+		} finally {
+			if (response != null) {
 				try {
 					response.close();
 					HttpUtils.closeClient();
@@ -169,7 +167,7 @@ public class WorldstateUtils {
 		}
 		return invasions;
 	}
-	
+
 	public static List<Alert> getAlerts() {
 		List<Alert> alerts = new ArrayList<Alert>();
 		CloseableHttpResponse response = null;
@@ -182,7 +180,7 @@ public class WorldstateUtils {
 			Type listType = new TypeToken<List<Alert>>() {
 			}.getType();
 			alerts = gson.fromJson(json, listType);
-			
+
 		} catch (ClientProtocolException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -192,8 +190,8 @@ public class WorldstateUtils {
 		} catch (NoSuchAlgorithmException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}finally{
-			if(response != null){
+		} finally {
+			if (response != null) {
 				try {
 					response.close();
 					HttpUtils.closeClient();

@@ -1,4 +1,4 @@
-package warframe.json;
+package warframe.notifier;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,10 +11,10 @@ import com.notification.types.TextNotification;
 import com.theme.ThemePackagePresets;
 import com.utils.Time;
 
-import warframe.json.templates.Alert;
-import warframe.json.templates.Invasion;
-import warframe.json.templates.WorldState;
-import warframe.utils.WorldstateUtils;
+import warframe.api.WorldstateUtils;
+import warframe.api.templates.Alert;
+import warframe.api.templates.Invasion;
+import warframe.api.templates.WorldState;
 
 public class NotificationEngine {
 	private List<Alert> alerts = new ArrayList<Alert>();
@@ -73,12 +73,14 @@ public class NotificationEngine {
 			String message) {
 		displayNotification(factory, plain, title, message, 2);
 	}
-	public void checkUpdates(){
+
+	public void checkUpdates() {
 		WorldState ws = WorldstateUtils.getWorldState();
 		setAlerts(WorldstateUtils.getAlerts());
 		setInvasions(WorldstateUtils.getInvasions());
 		displayNotifications();
 	}
+
 	public void displayNotification(NotificationFactory factory, NotificationManager plain, String title,
 			String message, double seconds) {
 		TextNotification notification = factory.buildTextNotification(title, message);

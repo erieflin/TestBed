@@ -1,4 +1,4 @@
-package warframe.json.templates;
+package warframe.api.templates;
 
 import java.util.List;
 import java.util.ArrayList;
