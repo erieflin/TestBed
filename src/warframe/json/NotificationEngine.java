@@ -1,12 +1,5 @@
 package warframe.json;
 
-import java.awt.AWTException;
-import java.awt.Image;
-import java.awt.SystemTray;
-import java.awt.Toolkit;
-import java.awt.TrayIcon;
-import java.awt.TrayIcon.MessageType;
-import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 

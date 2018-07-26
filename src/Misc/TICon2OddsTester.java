@@ -1,7 +1,8 @@
+package Misc;
 
 import java.util.Random;
 
-public class OddsTester {
+public class TICon2OddsTester {
 	public static void main(String[] args){
 		for(int i = 0; i < 10; ++i){
 			double odds = .5 + (.01 * i);

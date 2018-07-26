@@ -12,7 +12,6 @@ import org.apache.http.client.methods.CloseableHttpResponse;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import warframe.json.Filters;
 import warframe.json.HttpUtils;
 import warframe.json.templates.Alert;
 import warframe.json.templates.CetusCycle;
