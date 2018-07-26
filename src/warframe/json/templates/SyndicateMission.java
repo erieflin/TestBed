@@ -1,4 +1,4 @@
-package json.templates;
+package warframe.json.templates;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,7 @@ public class SyndicateMission {
 	private String expiry;
 	private String syndicate;
 	private List<String> nodes = new ArrayList<String>();  
-	private List<String> jobs = new ArrayList<String>(); 
+	private List<Job> jobs = new ArrayList<Job>(); 
 	private String eta;
 	
 	public String getId() {
@@ -42,10 +42,10 @@ public class SyndicateMission {
 	public void setNodes(List<String> nodes) {
 		this.nodes = nodes;
 	}
-	public List<String> getJobs() {
+	public List<Job> getJobs() {
 		return jobs;
 	}
-	public void setJobs(List<String> jobs) {
+	public void setJobs(List<Job> jobs) {
 		this.jobs = jobs;
 	}
 	public String getEta() {

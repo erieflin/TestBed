@@ -1,4 +1,4 @@
-package json.templates;
+package warframe.json.templates;
 
 public class Variant {
 	private String boss;

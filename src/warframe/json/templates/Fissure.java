@@ -1,4 +1,4 @@
-package json.templates;
+package warframe.json.templates;
 
 public class Fissure {
 	private String id;

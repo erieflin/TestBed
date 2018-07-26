@@ -1,12 +1,10 @@
-package json.templates;
+package warframe.json.templates;
 
-public class CetusCycle {
+public class EarthCycle {
 	private String id;
 	private String expiry;
 	private boolean isDay;
 	private String timeLeft;
-	private boolean isCetus;
-	private String shortString;
 	
 	public String getId() {
 		return id;
@@ -31,17 +29,5 @@ public class CetusCycle {
 	}
 	public void setTimeLeft(String timeLeft) {
 		this.timeLeft = timeLeft;
-	}
-	public boolean isCetus() {
-		return isCetus;
-	}
-	public void setCetus(boolean isCetus) {
-		this.isCetus = isCetus;
-	}
-	public String getShortString() {
-		return shortString;
-	}
-	public void setShortString(String shortString) {
-		this.shortString = shortString;
 	}
 }

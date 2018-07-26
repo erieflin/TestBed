@@ -1,4 +1,4 @@
-package json.templates;
+package warframe.json.templates;
 
 public class FlashSale {
 	private String item;

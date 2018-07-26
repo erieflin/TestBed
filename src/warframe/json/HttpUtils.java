@@ -1,4 +1,4 @@
-package json;
+package warframe.json;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;

@@ -1,11 +1,11 @@
-package json.templates;
+package warframe.json.templates;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class WorldState {
 	private String timestamp;
-	private News news;
+	private List<News> news = new ArrayList<News>();
 	private List<String> events = new ArrayList<String>();
 	private List<Alert> alerts = new ArrayList<Alert>();
 	private Sortie sortie;
@@ -30,10 +30,10 @@ public class WorldState {
 	public void setTimestamp(String timestamp) {
 		this.timestamp = timestamp;
 	}
-	public News getNews() {
+	public List<News> getNews() {
 		return news;
 	}
-	public void setNews(News news) {
+	public void setNews(List<News> news) {
 		this.news = news;
 	}
 	public List<String> getEvents() {

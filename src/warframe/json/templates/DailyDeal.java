@@ -1,4 +1,4 @@
-package json.templates;
+package warframe.json.templates;
 
 public class DailyDeal {
 	private String item;

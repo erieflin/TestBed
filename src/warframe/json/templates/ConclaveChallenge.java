@@ -1,4 +1,4 @@
-package json.templates;
+package warframe.json.templates;
 
 public class ConclaveChallenge {
 	private String id;
