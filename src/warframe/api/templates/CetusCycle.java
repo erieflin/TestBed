@@ -55,4 +55,8 @@ public class CetusCycle {
 	public void setShortString(String shortString) {
 		this.shortString = shortString;
 	}
+	
+	public String toString() {
+		return this.shortString;
+	}
 }

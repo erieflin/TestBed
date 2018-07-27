@@ -3,6 +3,8 @@ package warframe.api.templates;
 import java.util.ArrayList;
 import java.util.List;
 
+import warframe.api.filters.Filter;
+
 public class Alert {
 	private String id;
 	private String activation;
@@ -72,5 +74,19 @@ public class Alert {
 	public String toString() {
 		String notificationString = this.getExpiry() + "\nreward string\n" + this.getMission().getReward();
 		return notificationString;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(obj == null){
+			return false;
+		}if(obj == this){
+			return true;
+		}
+		if(!(obj instanceof Alert)){
+			return false;
+		}
+		Alert alertObj = (Alert) obj;
+		return alertObj.getId().equalsIgnoreCase(this.getId());
 	}
 }

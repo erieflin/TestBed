@@ -129,10 +129,25 @@ public class Invasion {
 	public void setRewardTypes(List<String> rewardTypes) {
 		this.rewardTypes = rewardTypes;
 	}
-
+	
+	@Override
 	public String toString() {
 		String notificationString = this.getEta() + "\nreward strings\nAttacker: " + this.attackerReward
 				+ "\nDefender: " + this.defenderReward;
 		return notificationString;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(obj == null){
+			return false;
+		}if(obj == this){
+			return true;
+		}
+		if(!(obj instanceof Invasion)){
+			return false;
+		}
+		Invasion alertObj = (Invasion) obj;
+		return alertObj.getId().equalsIgnoreCase(this.getId());
 	}
 }
