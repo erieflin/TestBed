@@ -6,7 +6,7 @@ import java.util.List;
 public class WorldState {
 	private String timestamp;
 	private List<News> news = new ArrayList<News>();
-	private List<String> events = new ArrayList<String>();
+	private List<Event> events = new ArrayList<Event>();
 	private List<Alert> alerts = new ArrayList<Alert>();
 	private Sortie sortie;
 	private List<SyndicateMission> syndicateMissions = new ArrayList<SyndicateMission>();
@@ -40,11 +40,11 @@ public class WorldState {
 		this.news = news;
 	}
 
-	public List<String> getEvents() {
+	public List<Event> getEvents() {
 		return events;
 	}
 
-	public void setEvents(List<String> events) {
+	public void setEvents(List<Event> events) {
 		this.events = events;
 	}
 

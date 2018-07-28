@@ -9,7 +9,7 @@ public class VoidTrader {
 	private String expiry;
 	private String character;
 	private String location;
-	private List<String> inventory = new ArrayList<String>();
+	private List<Item> inventory = new ArrayList<Item>();
 	private String psId;
 	private boolean active;
 	private String startString;
@@ -55,11 +55,11 @@ public class VoidTrader {
 		this.location = location;
 	}
 
-	public List<String> getInventory() {
+	public List<Item> getInventory() {
 		return inventory;
 	}
 
-	public void setInventory(List<String> inventory) {
+	public void setInventory(List<Item> inventory) {
 		this.inventory = inventory;
 	}
 
