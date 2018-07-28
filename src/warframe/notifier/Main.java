@@ -5,12 +5,12 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import com.utils.Time;
-
 import warframe.api.filters.AlertRewardFilters;
 import warframe.api.filters.CetusDayFilter;
+import warframe.api.filters.EventRewardFilter;
 import warframe.api.filters.Filter;
 import warframe.api.filters.RegexFilter;
+import warframe.notifier.utils.Time;
 
 public class Main {
 	private static final int interval = 2;
@@ -25,11 +25,12 @@ public class Main {
 		rewardStringFilters.add(new RegexFilter("kavat"));
 		
 		Filter alertRewardFilter = new AlertRewardFilters(rewardStringFilters);
+		Filter eventRewardFilter = new EventRewardFilter(rewardStringFilters);
 		
 		Filter cetusFilter = new CetusDayFilter();
 		engine.getAlertFilters().add(alertRewardFilter);
 		engine.getCetusFilters().add(cetusFilter);
-		
+		engine.getEventFilters().add(eventRewardFilter);
 		timer.schedule(new TimerTask() {
 
 			@Override
