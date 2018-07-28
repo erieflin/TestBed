@@ -1,5 +1,6 @@
 package warframe.notifier;
 
+import java.awt.FontMetrics;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -144,15 +145,22 @@ public class NotificationEngine {
 			String message, double seconds) {
 		WarframeNotification notification = factory.build(WarframeNotification.class, title, message);
 		ArrayList<String> lines = new ArrayList<String>(Arrays.asList(message.split("\n")));
-		lines.add(title);
 		String longestLine = lines.get(0);
 		for(String line: lines){
 			if(line.length()>longestLine.length()){
 				longestLine = line;
 			}
 		}
-		int width =  20 + notification.getMessageMetrics().stringWidth(longestLine);
-		int height = 40 + lines.size() * notification.getMessageMetrics().getHeight();
+		FontMetrics messageMetrics = notification.getMessageMetrics();
+		FontMetrics titleMetrics = notification.getTitleMetrics();
+		int longestWidth = messageMetrics.stringWidth(longestLine);
+		int titleWidth = titleMetrics.stringWidth(title);
+		if(titleWidth> longestWidth){
+			longestWidth = titleWidth;
+		}
+		int lineHeight = lines.size() * messageMetrics.getHeight();
+		int width =  20 + longestWidth;
+		int height = 40 + titleMetrics.getHeight() + lineHeight;
 		
 		notification.setCloseOnClick(true);
 		notification.setSize(width, height);

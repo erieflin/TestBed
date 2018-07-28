@@ -31,7 +31,7 @@ public class Main {
 		Filter cetusFilter = new CetusDayFilter();
 		engine.getAlertFilters().add(alertRewardFilter);
 		engine.getCetusFilters().add(cetusFilter);
-		engine.getEventFilters().add(eventRewardFilter);
+		//engine.getEventFilters().add(eventRewardFilter);
 		timer.schedule(new TimerTask() {
 
 			@Override
