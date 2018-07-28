@@ -18,6 +18,7 @@ import warframe.api.WorldstateUtils;
 import warframe.api.filters.Filter;
 import warframe.api.templates.Alert;
 import warframe.api.templates.CetusCycle;
+import warframe.api.templates.Event;
 import warframe.api.templates.Invasion;
 import warframe.api.templates.WorldState;
 
@@ -29,6 +30,7 @@ public class NotificationEngine {
 	private List<Filter> alertFilters = new ArrayList<Filter>();
 	private List<Filter> invasionFilters = new ArrayList<Filter>();
 	private List<Filter> cetusFilters = new ArrayList<Filter>();
+	private List<Filter> eventFilters = new ArrayList<Filter>();
 	public List<Filter> getCetusFilters() {
 		return cetusFilters;
 	}
@@ -74,7 +76,9 @@ public class NotificationEngine {
 		for (Invasion invasion : ws.getInvasions()) {
 			displayNotification(factory, plain, invasion.getDesc(), invasion.toString());
 		}
-		
+		for(Event event: ws.getEvents()){
+			displayNotification(factory, plain, event.getDescription(), event.getAsString());
+		}
 		for(String key: miscToNotify.keySet()){
 			displayNotification(factory, plain, key, miscToNotify.get(key));
 		}
@@ -96,6 +100,7 @@ public class NotificationEngine {
 		applyFilters(ws.getAlerts(), this.alertFilters);
 		applyFilters(ws.getInvasions(), this.invasionFilters);
 		CetusCycle cetus = ws.getCetusCycle();
+		applyFilters(ws.getEvents(), this.eventFilters);
 		if(fufillsFilters(cetus, cetusFilters)){
 			miscToNotify.put("Cetus Status", cetus.toString());
 		}
