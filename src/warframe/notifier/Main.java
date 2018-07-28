@@ -39,8 +39,8 @@ public class Main {
 				
 				engine.checkUpdates();
 			}
-		}, 0, Time.seconds(60 
-				* interval).getMilliseconds());
+		}, 0, Time.seconds(60 *
+				interval).getMilliseconds());
 	}
 
 }

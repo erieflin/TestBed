@@ -1,7 +1,7 @@
 package warframe.notifier;
 
-import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -10,7 +10,6 @@ import com.notification.NotificationFactory;
 import com.notification.NotificationFactory.Location;
 import com.notification.NotificationManager;
 import com.notification.manager.SimpleManager;
-import com.notification.types.TextNotification;
 import com.theme.ThemePackagePresets;
 import com.utils.Time;
 
@@ -21,6 +20,7 @@ import warframe.api.templates.CetusCycle;
 import warframe.api.templates.Event;
 import warframe.api.templates.Invasion;
 import warframe.api.templates.WorldState;
+import warframe.notifier.notification.WarframeNotification;
 
 public class NotificationEngine {
 	// private List<Alert> alerts = new ArrayList<Alert>();
@@ -31,6 +31,14 @@ public class NotificationEngine {
 	private List<Filter> invasionFilters = new ArrayList<Filter>();
 	private List<Filter> cetusFilters = new ArrayList<Filter>();
 	private List<Filter> eventFilters = new ArrayList<Filter>();
+	public List<Filter> getEventFilters() {
+		return eventFilters;
+	}
+
+	public void setEventFilters(List<Filter> eventFilters) {
+		this.eventFilters = eventFilters;
+	}
+
 	public List<Filter> getCetusFilters() {
 		return cetusFilters;
 	}
@@ -59,6 +67,7 @@ public class NotificationEngine {
 		// makes a factory with the built-in clean theme
 		// themes are customizeable
 		NotificationFactory factory = new NotificationFactory(ThemePackagePresets.cleanLight());
+		factory.addBuilder(WarframeNotification.class, new WarframeNotification.CustomBuilder());
 		// factories build notifications using a theme, while managers handle
 		// how
 		// how they appear on the screen
@@ -130,65 +139,23 @@ public class NotificationEngine {
 			}
 		}
 	}
-
-//	public void addNewInvasions(List<Invasion> newInvasions) {
-//		Iterator<Invasion> i = invasions.iterator();
-//		while (i.hasNext()) {
-//			Invasion inv = i.next();
-//			if (inv.isCompleted()) {
-//				i.remove();
-//				continue;
-//			}
-//			if (!newInvasions.contains(inv)) {
-//				i.remove();
-//			}
-//		}
-//		for (Invasion newInvasion : newInvasions) {
-//			boolean found = false;
-//			for (Invasion currentInvasion : invasions) {
-//				if (currentInvasion.equals(newInvasion)) {
-//					found = true;
-//					break;
-//				}
-//			}
-//			if (!found) {
-//				invasions.add(newInvasion);
-//			}
-//		}
-//	}
-//
-//	public void addNewAlerts(List<Alert> newAlerts) {
-//		Iterator<Alert> i = alerts.iterator();
-//		while (i.hasNext()) {
-//			Alert a = i.next();
-//			Instant instant = Instant.parse(a.getExpiry());
-//			if (instant.compareTo(Instant.now()) < 0) {
-//				i.remove();
-//				continue;
-//			}
-//			if (!newAlerts.contains(a)) {
-//				i.remove();
-//			}
-//		}
-//
-//		for (Alert newAlert : newAlerts) {
-//			boolean found = false;
-//			for (Alert currentAlert : alerts) {
-//				if (currentAlert.equals(newAlert)) {
-//					found = true;
-//					break;
-//				}
-//			}
-//			if (!found) {
-//				alerts.add(newAlert);
-//			}
-//		}
-//	}
-
+	
 	public void displayNotification(NotificationFactory factory, NotificationManager plain, String title,
 			String message, double seconds) {
-		TextNotification notification = factory.buildTextNotification(title, message);
+		WarframeNotification notification = factory.build(WarframeNotification.class, title, message);
+		ArrayList<String> lines = new ArrayList<String>(Arrays.asList(message.split("\n")));
+		lines.add(title);
+		String longestLine = lines.get(0);
+		for(String line: lines){
+			if(line.length()>longestLine.length()){
+				longestLine = line;
+			}
+		}
+		int width =  20 + notification.getMessageMetrics().stringWidth(longestLine);
+		int height = 40 + lines.size() * notification.getMessageMetrics().getHeight();
+		
 		notification.setCloseOnClick(true);
+		notification.setSize(width, height);
 		// the notification will disappear after 2 seconds, or after you
 		// click it
 		plain.addNotification(notification, Time.infinite());
@@ -218,5 +185,7 @@ public class NotificationEngine {
 	public void setInvasionFilters(List<Filter> invasionFilters) {
 		this.invasionFilters = invasionFilters;
 	}
+
+	
 
 }
