@@ -130,7 +130,7 @@ public class NotificationEngine {
 
 		try {
 
-			Thread.sleep(Time.seconds(30).getMilliseconds());
+			Thread.sleep(Time.seconds(2).getMilliseconds());
 			manager.removeNotification(notification);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
