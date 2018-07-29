@@ -3,7 +3,6 @@ package warframe.notifier;
 import java.awt.FontMetrics;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 
 import com.notification.Notification;
 import com.notification.NotificationFactory;
@@ -17,6 +16,7 @@ import com.utils.Time;
 
 import warframe.api.WorldstateUtils;
 import warframe.api.templates.Alert;
+import warframe.api.templates.CetusCycle;
 import warframe.api.templates.Event;
 import warframe.api.templates.Invasion;
 import warframe.api.templates.WorldState;
@@ -39,25 +39,52 @@ public class NotificationEngine {
 		NotificationManager plain = new SimpleManager(Location.SOUTHEAST);
 
 
-		for (Alert alert : ws.getAlerts()) {
-			displayNotification(factory, plain, alert.getMission().getType(), alert.toString());
-		}
-		for (Invasion invasion : ws.getInvasions()) {
-			displayNotification(factory, plain, invasion.getDesc(), invasion.toString());
-		}
-		for(Event event: ws.getEvents()){
-			displayNotification(factory, plain, event.getDescription(), event.getAsString());
-		}
-		HashMap<String,String> miscToNotify = fe.getMiscToNotify();
-		for(String key: miscToNotify.keySet()){
-			displayNotification(factory, plain, key, miscToNotify.get(key));
+		for(Class<?> key: fe.getData().keySet()){
+			for(Object o: fe.getData().get(key)){
+				displayNotification(factory, plain, o);
+			}
 		}
 		plain = null;
 	}
+	
+	public void displayNotification(NotificationFactory factory, NotificationManager plain, Object o){
+		if(o instanceof Alert){
+			Alert alert = (Alert) o;
+			WarframeNotification notification = buildNotification(factory, alert.getMission().getType(), alert.toString());
 
-	public void displayNotification(NotificationFactory factory, NotificationManager plain, String title,
+			ClickedListener listener = new ClickedListener(alert.getClass(),alert.getId());
+			notification.addNotificationListener(listener);
+			displayNotification(plain,notification);
+		}
+		
+		if(o instanceof Invasion){
+			Invasion i = (Invasion) o;
+			WarframeNotification notification = buildNotification(factory, i.getDesc(), i.toString());
+			ClickedListener listener = new ClickedListener(i.getClass(),i.getId());
+			notification.addNotificationListener(listener);
+			displayNotification(plain,notification);
+		}
+		
+		if(o instanceof Event){
+			Event e = (Event) o;
+			WarframeNotification notification = buildNotification(factory, e.getDescription(), e.toString());
+			ClickedListener listener = new ClickedListener(e.getClass(),e.getId());
+			notification.addNotificationListener(listener);
+			displayNotification(plain,notification);
+		}
+		
+		if(o instanceof CetusCycle){
+			CetusCycle c = (CetusCycle) o; 
+			WarframeNotification notification = buildNotification(factory, "Cetus Status", c.toString());
+			ClickedListener listener = new ClickedListener(c.getClass(),c.getId());
+			notification.addNotificationListener(listener);
+			displayNotification(plain,notification);
+		}
+			
+	}
+	public WarframeNotification buildNotification(NotificationFactory factory, String title,
 			String message) {
-		displayNotification(factory, plain, title, message, 2);
+		return buildNotification(factory, title, message, 2);
 	}
 
 	public void checkUpdates() {
@@ -70,7 +97,7 @@ public class NotificationEngine {
 	}
 
 
-	public void displayNotification(NotificationFactory factory, NotificationManager plain, String title,
+	public WarframeNotification buildNotification(NotificationFactory factory,  String title,
 			String message, double seconds) {
 		WarframeNotification notification = factory.build(WarframeNotification.class, title, message);
 		ArrayList<String> lines = new ArrayList<String>(Arrays.asList(message.split("\n")));
@@ -93,28 +120,36 @@ public class NotificationEngine {
 		
 		notification.setCloseOnClick(true);
 		notification.setSize(width, height);
-		// the notification will disappear after 2 seconds, or after you
-		// click it
-		plain.addNotification(notification, Time.infinite());
+
+		return notification;
+	
+	}
+
+	public void displayNotification(NotificationManager manager, Notification notification){
+		manager.addNotification(notification, Time.infinite());
 
 		try {
 
-			Thread.sleep(Time.seconds(2).getMilliseconds());
-			plain.removeNotification(notification);
+			Thread.sleep(Time.seconds(30).getMilliseconds());
+			manager.removeNotification(notification);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-
 	
 	private class ClickedListener implements NotificationListener {
+		
+		private Class<?> sourceClass;
+		private String sourceId;
+		public ClickedListener(Class<?> sourceClass, String sourceId) {
+			this.sourceClass = sourceClass;
+			this.sourceId = sourceId;
+		}
 		@Override
 		public void actionCompleted(Notification notification, String action) {
 			if (action.equals(WindowNotification.CLICKED )) {
-				//
-				
-				
+				fe.ignoreId(sourceClass,sourceId);
 			}
 		}
 	}

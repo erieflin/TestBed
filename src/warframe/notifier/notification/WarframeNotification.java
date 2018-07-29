@@ -12,13 +12,15 @@ import com.theme.TextTheme;
 import com.theme.ThemePackage;
 import com.theme.WindowTheme;
 
+import warframe.api.templates.WorldState;
+
 /**
  * This is a CustomNotification which will only have one line of text and a button that will turn into a progress bar.
  */
 public class WarframeNotification extends BorderLayoutNotification {
 	protected JLabel titleElement;
 	protected JTextArea messageElement;
-
+	private Class<?> sourceClass = WorldState.class;
 	private TextTheme textTheme;
 	private WindowTheme windowTheme;
 	
@@ -58,10 +60,9 @@ public class WarframeNotification extends BorderLayoutNotification {
 			note.setWindowTheme(pack.getTheme(WindowTheme.class));
 			// handled by us
 			note.setTextTheme(pack.getTheme(TextTheme.class));
-
-			if (args.length > 0) {
+				if (args.length > 0) {
 				note.setTitle((String) args[0]);
-				if(args.length>1){
+				if(args.length> 1){
 					note.setMessage((String) args[1]);
 				}else{
 					note.setMessage("No text supplied");
@@ -69,6 +70,7 @@ public class WarframeNotification extends BorderLayoutNotification {
 			} else {
 				note.setTitle("No text supplied");
 			}
+			
 			return note;
 		}
 	}
@@ -93,6 +95,14 @@ public class WarframeNotification extends BorderLayoutNotification {
 	}
 	public FontMetrics getTitleMetrics(){
 		return titleElement.getFontMetrics(titleElement.getFont());
+	}
+
+	public Class<?> getSourceClass() {
+		return sourceClass;
+	}
+
+	public void setSourceClass(Class<?> sourceClass) {
+		this.sourceClass = sourceClass;
 	}
 	
 }
