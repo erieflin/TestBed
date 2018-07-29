@@ -7,11 +7,13 @@ import java.util.TimerTask;
 
 import com.utils.Time;
 
+import javafx.scene.control.Alert;
 import warframe.api.filters.AlertRewardFilters;
 import warframe.api.filters.CetusDayFilter;
 import warframe.api.filters.EventRewardFilter;
 import warframe.api.filters.Filter;
 import warframe.api.filters.RegexFilter;
+import warframe.api.templates.CetusCycle;
 
 public class Main {
 	private static final int interval = 2;
@@ -29,9 +31,9 @@ public class Main {
 		Filter eventRewardFilter = new EventRewardFilter(rewardStringFilters);
 		
 		Filter cetusFilter = new CetusDayFilter();
-		engine.getAlertFilters().add(alertRewardFilter);
-		engine.getCetusFilters().add(cetusFilter);
-		//engine.getEventFilters().add(eventRewardFilter);
+		engine.getFe().getFilter(Alert.class).add(alertRewardFilter);
+		engine.getFe().getFilter(CetusCycle.class).add(cetusFilter);
+		//engine.getFe().getEventFilters().add(eventRewardFilter);
 		timer.schedule(new TimerTask() {
 
 			@Override

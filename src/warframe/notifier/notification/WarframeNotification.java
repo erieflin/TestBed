@@ -2,14 +2,9 @@ package warframe.notifier.notification;
 
 import java.awt.BorderLayout;
 import java.awt.FontMetrics;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JProgressBar;
 import javax.swing.JTextArea;
-import javax.swing.Timer;
 
 import com.notification.NotificationBuilder;
 import com.notification.types.BorderLayoutNotification;
@@ -26,7 +21,7 @@ public class WarframeNotification extends BorderLayoutNotification {
 
 	private TextTheme textTheme;
 	private WindowTheme windowTheme;
-
+	
 	public WarframeNotification() {
 		titleElement = new JLabel();
 		messageElement = new JTextArea();
@@ -99,5 +94,5 @@ public class WarframeNotification extends BorderLayoutNotification {
 	public FontMetrics getTitleMetrics(){
 		return titleElement.getFontMetrics(titleElement.getFont());
 	}
-
+	
 }
