@@ -15,7 +15,7 @@ public class IgnoredFilter implements Filter {
 		// TODO Auto-generated method stub
 		Method methodToFind = null;
 		try {
-			methodToFind = o.getClass().getMethod("getID", (Class<?>[]) null);
+			methodToFind = o.getClass().getMethod("getId", (Class<?>[]) null);
 			String idString = (String) methodToFind.invoke(o, (Object[]) null);
 			if (!ignoredIds.contains(idString)) {
 				return true;
