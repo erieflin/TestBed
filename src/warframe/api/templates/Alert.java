@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import warframe.api.filters.Filter;
+import warframe.api.utils.TimeUtils;
 
 public class Alert {
 	private String id;
@@ -72,7 +73,7 @@ public class Alert {
 
 	@Override
 	public String toString() {
-		String notificationString = this.getExpiry() + "\nreward string\n" + this.getMission().getReward();
+		String notificationString = TimeUtils.timeRemaining(this.getExpiry()) + "\nreward string\n" + this.getMission().getReward();
 		return notificationString;
 	}
 	
