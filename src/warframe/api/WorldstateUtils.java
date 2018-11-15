@@ -10,6 +10,7 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.CloseableHttpResponse;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 
 import warframe.api.templates.Alert;
@@ -29,10 +30,11 @@ public class WorldstateUtils {
 	public static WorldState getWorldState() {
 		WorldState world = new WorldState();
 		CloseableHttpResponse response = null;
+		String json = "";
 		try {
 			HttpUtils.openClient();
 			response = HttpUtils.sendRequest(WorldstateUtils.PCURL);
-			String json = HttpUtils.getContentFromResponse(response);
+			json = HttpUtils.getContentFromResponse(response);
 
 			Gson gson = new Gson();
 
@@ -46,6 +48,9 @@ public class WorldstateUtils {
 			e.printStackTrace();
 		} catch (NoSuchAlgorithmException e) {
 			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch ( JsonSyntaxException e){
+			System.err.println(json);
 			e.printStackTrace();
 		} finally {
 			if (response != null) {
